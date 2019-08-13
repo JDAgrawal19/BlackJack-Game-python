@@ -5,11 +5,5 @@ class Player(object):
         self.hand = []
         self.value_for_ace_card = 11
 
-    def check_if_player_says_hit(self, choice):
-        if choice.lower() == 'hit':
-            return True
-        elif choice.lower() == 'stand':
-            return False
-
     def check_if_player_is_busted(self):
         return self.score > 21
