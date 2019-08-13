@@ -12,7 +12,4 @@ class Player(object):
             return False
 
     def check_if_player_is_busted(self):
-        if self.score > 21:
-            return True
-        else:
-            return False
+        return self.score > 21
