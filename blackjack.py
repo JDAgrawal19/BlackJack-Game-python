@@ -76,4 +76,3 @@ while True:
 # get the winners
 results = table.get_the_results_of_game()
 print(results)
-
