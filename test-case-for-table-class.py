@@ -36,12 +36,12 @@ class TableTester(unittest.TestCase):
         score = cards[0][1] + cards[1][1]
         self.assertEqual(score, table.calc_score(table.dealer))
 
-    def test_calculate_score_of_dealer_with_two_simple_cards_and_one_ace_card_and_cards_sum_exceeds_twenty_one(self):
+    def test_score_of_dealer_with_two_simple_cards_and_one_ace_card_and_sum_exceeds_twenty_one(self):
         table = Table(2, 4)
         table.dealer.hand = [('10', 10), ('6', 6), ('A', None)]
         self.assertEqual(17, table.calc_score(table.dealer))
 
-    def test_calculate_score_of_dealer_with_two_simple_cards_and_one_ace_card_and_card_sum_less_than_twenty_one(self):
+    def test_score_of_dealer_with_two_simple_cards_and_one_ace_card_and_sum_less_than_twenty_one(self):
         table = Table(2, 4)
         table.dealer.hand = [('4', 4), ('6', 6), ('A', None)]
         self.assertEqual(21, table.calc_score(table.dealer))
@@ -57,22 +57,25 @@ class TableTester(unittest.TestCase):
         table.players[0].score = 20
         table.players[1].score = 22
         table.players[2].score = 21
-        results = [{'dealer': 'Loser', 'player_1': 'Winner'}, {'dealer': 'Winner', 'player_2': 'Loser'},
+        results = [{'dealer': 'Loser', 'player_1': 'Winner'},
+                   {'dealer': 'Winner', 'player_2': 'Loser'},
                    {'dealer': 'Loser', 'player_3': 'Winner'}]
         self.assertEqual(results, table.get_the_results_of_game())
 
-    def test_results_of_game_when_dealer_is_not_busted_and_score_of_dealer_and_player_is_different(self):
+    def test_results_when_dealer_not_busted_and_score_of_dealer_and_player_is_different(self):
         table = Table(2, 4)
         table.dealer.score = 19
         table.players[0].score = 20
         table.players[1].score = 22
         table.players[2].score = 21
         table.players[3].score = 18
-        results = [{'dealer': 'Loser', 'player_1': 'Winner'}, {'dealer': 'Winner', 'player_2': 'Loser'},
-                   {'dealer': 'Loser', 'player_3': 'Winner'}, {'dealer': 'Winner', 'player_4': 'Loser'}]
+        results = [{'dealer': 'Loser', 'player_1': 'Winner'},
+                   {'dealer': 'Winner', 'player_2': 'Loser'},
+                   {'dealer': 'Loser', 'player_3': 'Winner'},
+                   {'dealer': 'Winner', 'player_4': 'Loser'}]
         self.assertEqual(results, table.get_the_results_of_game())
 
-    def test_results_of_game_when_dealer_has_blackjack_and_score_of_dealer_and_player_is_equal(self):
+    def test_results_when_dealer_has_blackjack_and_score_of_dealer_and_player_same(self):
         table = Table(2, 3)
         table.dealer.hand = [('10', 10), ('A', None)]
         table.players[0].hand = [('10', 10), ('K', 10), ('A', None)]
@@ -82,11 +85,12 @@ class TableTester(unittest.TestCase):
         table.players[0].score = 21
         table.players[1].score = 21
         table.players[2].score = 21
-        results = [{'dealer': 'Winner', 'player_1': 'Loser'}, {'dealer': 'Winner', 'player_2': 'Loser'},
+        results = [{'dealer': 'Winner', 'player_1': 'Loser'},
+                   {'dealer': 'Winner', 'player_2': 'Loser'},
                    {'dealer': 'Push', 'player_3': 'Push'}]
         self.assertEqual(results, table.get_the_results_of_game())
 
-    def test_results_of_game_when_dealer_has_no_blackjack_and_score_of_dealer_and_player_is_equal(self):
+    def test_results_when_dealer_has_no_blackjack_and_score_of_dealer_and_player_same(self):
         table = Table(2, 3)
         table.dealer.hand = [('10', 10), ('K', 10), ('A', None)]
         table.players[0].hand = [('10', 10), ('K', 10), ('A', None)]
@@ -96,7 +100,8 @@ class TableTester(unittest.TestCase):
         table.players[0].score = 21
         table.players[1].score = 21
         table.players[2].score = 21
-        results = [{'dealer': 'Push', 'player_1': 'Push'}, {'dealer': 'Push', 'player_2': 'Push'},
+        results = [{'dealer': 'Push', 'player_1': 'Push'},
+                   {'dealer': 'Push', 'player_2': 'Push'},
                    {'dealer': 'Loser', 'player_3': 'Winner'}]
         self.assertEqual(results, table.get_the_results_of_game())
 
