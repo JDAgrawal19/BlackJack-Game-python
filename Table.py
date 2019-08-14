@@ -17,7 +17,7 @@ class Table(object):
         player.hand.append(self.cards.take_a_card_from_stack())
 
     def show_first_card_of_dealer(self):
-        return {self.dealer.name:self.dealer.hand[0]}
+        return {self.dealer.name: self.dealer.hand[0]}
 
     def show_cards_of_players(self):
         return {player.name: player.hand for player in self.players}
@@ -40,21 +40,19 @@ class Table(object):
         for player in self.players:
             if self.dealer.score > 21 and player.score <= 21:
                 results.append({'dealer': 'Loser', player.name: 'Winner'})
-            elif self.dealer.score > 21 and player.score > 21:
-                results.append({'dealer': 'Winner', player.name: 'Loser'})
-            elif self.dealer.score < 21 and player.score > 21:
+            elif (player.score > 21) or (21 > self.dealer.score > player.score):
                 results.append({'dealer': 'Winner', player.name: 'Loser'})
             elif self.dealer.score < 21 and self.dealer.score < player.score:
                 results.append({'dealer': 'Loser', player.name: 'Winner'})
-            elif 21 > self.dealer.score > player.score:
+            elif self.dealer.score == player.score == 21 and \
+                    len(self.dealer.hand) == 2 and len(player.hand) > 2:
                 results.append({'dealer': 'Winner', player.name: 'Loser'})
-            elif self.dealer.score == player.score == 21 and len(self.dealer.hand) == 2 and len(player.hand) > 2:
-                results.append({'dealer': 'Winner', player.name: 'Loser'})
-            elif self.dealer.score == player.score == 21 and len(self.dealer.hand) > 2 and len(player.hand) == 2:
+            elif self.dealer.score == player.score == 21 \
+                    and len(self.dealer.hand) > 2 and len(player.hand) == 2:
                 results.append({'dealer': 'Loser', player.name: 'Winner'})
-            elif self.dealer.score == player.score == 21 and len(self.dealer.hand) == 2 and len(player.hand) == 2:
-                results.append({'dealer': 'Push', player.name: 'Push'})
-            elif self.dealer.score == player.score:
+            elif (self.dealer.score == player.score == 21 and
+                  len(self.dealer.hand) == 2 and len(player.hand) == 2) \
+                    or (self.dealer.score == player.score):
                 results.append({'dealer': 'Push', player.name: 'Push'})
         return results
 
