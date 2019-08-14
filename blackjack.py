@@ -67,9 +67,7 @@ while True:
     print("Dealer {} cards are {}".format(table.dealer.name, table.dealer.hand))
     dealer_score = table.calc_score(table.dealer)
     print("Score of Dealer is {}".format(dealer_score))
-    if dealer_score > 21:
-        break
-    elif dealer_score < 17:
+    if dealer_score < 17:
         table.distribute_card_to_dealer()
     else:
         break
